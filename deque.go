@@ -1,5 +1,7 @@
 package deque
 
+import "fmt"
+
 type node[T any] struct {
 	val  T
 	next *node[T]
@@ -98,5 +100,29 @@ func (q *Deque[T]) Last() (T, bool) {
 	return q.tail.val, true
 }
 
-// func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
-// }
+func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
+	if at > uint(q.count) {
+		panic(fmt.Sprintf("Inserting at: %d greater than current number of nodes: %d", at, q.count))
+	} else if at == 0 {
+		return q.AppendFirst(val)
+	} else if at == uint(q.count) {
+		return q.AppendLast(val)
+	}
+
+	prevNode := q.head.prev
+	currNode := q.head
+	for i := uint(0); i < at; i++ {
+		prevNode = currNode
+		currNode = currNode.next
+	}
+	newNode := &node[T]{
+		val:  val,
+		prev: prevNode,
+		next: currNode,
+	}
+
+	prevNode.next = newNode
+	currNode.prev = newNode
+	q.count++
+	return q
+}

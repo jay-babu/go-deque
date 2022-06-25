@@ -100,3 +100,41 @@ func TestPops(t *testing.T) {
 		t.Error("q.Prepop() = ", val, "expect 3")
 	}
 }
+
+func TestInsertAtPanic(t *testing.T) {
+	// No need to check whether `recover()` is nil. Just turn off the panic.
+	defer func() { _ = recover() }()
+	q := Deque[int]{}
+	q.InsertAt(5, 3)
+	t.Errorf("should have panicked")
+}
+
+func TestInsertAt(t *testing.T) {
+	q := Deque[int]{}
+	q.InsertAt(0, 0)
+	q.InsertAt(2, 1)
+	q.InsertAt(1, 1)
+	q.InsertAt(3, 3)
+
+	if q.Len() != 4 {
+		t.Error("q.Len() =", q.Len(), "expect 4")
+	}
+
+	var val int
+	val, _ = q.PopFirst()
+	if val != 0 {
+		t.Error(val, "should have been 0")
+	}
+	val, _ = q.PopFirst()
+	if val != 1 {
+		t.Error(val, "should have been 1")
+	}
+	val, _ = q.PopFirst()
+	if val != 2 {
+		t.Error(val, "should have been 2")
+	}
+	val, _ = q.PopFirst()
+	if val != 3 {
+		t.Error(val, "should have been 3")
+	}
+}
