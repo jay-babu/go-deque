@@ -16,7 +16,7 @@ func (q *Deque[T]) Len() int {
 	return q.count
 }
 
-func (q *Deque[T]) Postpend(val T) *Deque[T] {
+func (q *Deque[T]) AppendLast(val T) *Deque[T] {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
@@ -34,7 +34,7 @@ func (q *Deque[T]) Postpend(val T) *Deque[T] {
 	return q
 }
 
-func (q *Deque[T]) Prepend(val T) *Deque[T] {
+func (q *Deque[T]) AppendFirst(val T) *Deque[T] {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
@@ -52,7 +52,7 @@ func (q *Deque[T]) Prepend(val T) *Deque[T] {
 	return q
 }
 
-func (q *Deque[T]) Prepop() *T {
+func (q *Deque[T]) PopFirst() *T {
 	if q.head == nil {
 		return nil
 	}
@@ -66,7 +66,7 @@ func (q *Deque[T]) Prepop() *T {
 	return &head.val
 }
 
-func (q *Deque[T]) Postpop() *T {
+func (q *Deque[T]) PopLast() *T {
 	if q.tail == nil {
 		return nil
 	}

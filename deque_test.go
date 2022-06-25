@@ -13,14 +13,14 @@ func TestEmpty(t *testing.T) {
 
 func TestPrepend(t *testing.T) {
 	q := Deque[int]{}
-	q.Prepend(1)
+	q.AppendFirst(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	if *q.First() != 1 {
 		t.Error("q.First() =", *q.First(), "expect 1")
 	}
-	q.Prepend(2)
+	q.AppendFirst(2)
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
@@ -31,14 +31,14 @@ func TestPrepend(t *testing.T) {
 
 func TestPostpend(t *testing.T) {
 	q := Deque[int]{}
-	q.Postpend(1)
+	q.AppendLast(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	if *q.First() != 1 {
 		t.Error("q.First() =", *q.First(), "expect 1")
 	}
-	q.Postpend(2)
+	q.AppendLast(2)
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
@@ -49,21 +49,21 @@ func TestPostpend(t *testing.T) {
 
 func TestPrePostpend(t *testing.T) {
 	q := Deque[int]{}
-	q.Postpend(1)
+	q.AppendLast(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	if *q.First() != 1 {
 		t.Error("q.First() =", *q.First(), "expect 1")
 	}
-	q.Prepend(2)
+	q.AppendFirst(2)
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
 	if *q.First() != 2 {
 		t.Error("q.First() =", *q.First(), "expect 2")
 	}
-	q.Postpend(2)
+	q.AppendLast(2)
 	if q.Len() != 3 {
 		t.Error("q.Len() =", q.Len(), "expect 3")
 	}
@@ -74,20 +74,20 @@ func TestPrePostpend(t *testing.T) {
 
 func TestPops(t *testing.T) {
 	q := Deque[int]{}
-	q.Postpend(1)
-	q.Postpend(2)
-	q.Postpend(3)
+	q.AppendLast(1)
+	q.AppendLast(2)
+	q.AppendLast(3)
 	var val *int
 
-	val = q.Prepop()
+	val = q.PopFirst()
 	if *val != 1 {
 		t.Error("q.Prepop() = ", *val, "expect 1")
 	}
-	val = q.Prepop()
+	val = q.PopFirst()
 	if *val != 2 {
 		t.Error("q.Prepop() = ", *val, "expect 2")
 	}
-	val = q.Postpop()
+	val = q.PopLast()
 	if *val != 3 {
 		t.Error("q.Prepop() = ", *val, "expect 3")
 	}
