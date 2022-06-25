@@ -52,9 +52,10 @@ func (q *Deque[T]) AppendFirst(val T) *Deque[T] {
 	return q
 }
 
-func (q *Deque[T]) PopFirst() *T {
+func (q *Deque[T]) PopFirst() (T, bool) {
 	if q.head == nil {
-		return nil
+		var noop T
+		return noop, false
 	}
 	head := q.head
 	q.head = q.head.next
@@ -63,12 +64,13 @@ func (q *Deque[T]) PopFirst() *T {
 		q.head.prev = nil
 	}
 	q.count--
-	return &head.val
+	return head.val, true
 }
 
-func (q *Deque[T]) PopLast() *T {
+func (q *Deque[T]) PopLast() (T, bool) {
 	if q.tail == nil {
-		return nil
+		var noop T
+		return noop, false
 	}
 	tail := q.tail
 	q.tail = q.tail.prev
@@ -77,19 +79,24 @@ func (q *Deque[T]) PopLast() *T {
 		q.tail.next = nil
 	}
 	q.count--
-	return &tail.val
+	return tail.val, true
 }
 
-func (q *Deque[T]) First() *T {
+func (q *Deque[T]) First() (T, bool) {
 	if q.head == nil {
-		return nil
+		var noop T
+		return noop, false
 	}
-	return &q.head.val
+	return q.head.val, true
 }
 
-func (q *Deque[T]) Last() *T {
+func (q *Deque[T]) Last() (T, bool) {
 	if q.tail == nil {
-		return nil
+		var noop T
+		return noop, false
 	}
-	return &q.tail.val
+	return q.tail.val, true
 }
+
+// func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
+// }
