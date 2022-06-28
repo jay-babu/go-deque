@@ -5,8 +5,8 @@ import "fmt"
 
 type Dequer[T any] interface {
 	Len() int
-	AppendLast(T)
-	AppendFirst(T)
+	AppendLast(...T)
+	AppendFirst(...T)
 	PopFirst() (T, bool)
 	PopLast() (T, bool)
 	First() (T, bool)
@@ -33,7 +33,13 @@ func (q *Deque[T]) Len() int {
 	return q.count
 }
 
-func (q *Deque[T]) AppendLast(val T) {
+func (q *Deque[T]) AppendLast(vals ...T) {
+	for _, val := range vals {
+		q.appendLast(val)
+	}
+}
+
+func (q *Deque[T]) appendLast(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
@@ -50,7 +56,13 @@ func (q *Deque[T]) AppendLast(val T) {
 	q.count++
 }
 
-func (q *Deque[T]) AppendFirst(val T) {
+func (q *Deque[T]) AppendFirst(vals ...T) {
+	for _, val := range vals {
+		q.appendFirst(val)
+	}
+}
+
+func (q *Deque[T]) appendFirst(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
