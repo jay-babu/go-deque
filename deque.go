@@ -100,6 +100,17 @@ func (q *Deque[T]) Last() (T, bool) {
 	return q.tail.val, true
 }
 
+func (q *Deque[T]) At(at uint) (T, bool) {
+	if at >= uint(q.count) {
+		panic(fmt.Sprintf("At Index: %d greater than current number of nodes: %d", at, q.count))
+	}
+	currNode := q.head
+	for i := uint(0); i < at; i++ {
+		currNode = currNode.next
+	}
+	return currNode.val, false
+}
+
 func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
 	if at > uint(q.count) {
 		panic(fmt.Sprintf("Inserting at: %d greater than current number of nodes: %d", at, q.count))

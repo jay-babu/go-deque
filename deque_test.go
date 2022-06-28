@@ -109,6 +109,32 @@ func TestInsertAtPanic(t *testing.T) {
 	t.Errorf("should have panicked")
 }
 
+func TestAt(t *testing.T) {
+	q := Deque[int]{}
+	q.AppendLast(1).AppendLast(2).AppendLast(3)
+	var val int
+	val, _ = q.At(0)
+	if val != 1 {
+		t.Error("q.At(0) =", val, "expect 1")
+	}
+	val, _ = q.At(1)
+	if val != 2 {
+		t.Error("q.At(1) =", val, "expect 2")
+	}
+	val, _ = q.At(2)
+	if val != 3 {
+		t.Error("q.At(2) =", val, "expect 3")
+	}
+}
+
+func TestAtPanic(t *testing.T) {
+	// No need to check whether `recover()` is nil. Just turn off the panic.
+	defer func() { _ = recover() }()
+	q := Deque[int]{}
+	q.At(5)
+	t.Errorf("should have panicked")
+}
+
 func TestInsertAt(t *testing.T) {
 	q := Deque[int]{}
 	q.InsertAt(0, 0)
