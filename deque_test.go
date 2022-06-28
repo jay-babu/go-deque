@@ -84,7 +84,9 @@ func TestPrePostpend(t *testing.T) {
 
 func TestPops(t *testing.T) {
 	q := Deque[int]{}
-	q.AppendLast(1).AppendLast(2).AppendLast(3)
+	q.AppendLast(1)
+	q.AppendLast(2)
+	q.AppendLast(3)
 	var val int
 
 	val, _ = q.PopFirst()
@@ -111,7 +113,9 @@ func TestInsertAtPanic(t *testing.T) {
 
 func TestAt(t *testing.T) {
 	q := Deque[int]{}
-	q.AppendLast(1).AppendLast(2).AppendLast(3)
+	q.AppendLast(1)
+	q.AppendLast(2)
+	q.AppendLast(3)
 	var val int
 	val, _ = q.At(0)
 	if val != 1 {

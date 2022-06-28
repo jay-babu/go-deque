@@ -1,6 +1,19 @@
+// Package deque implements
 package deque
 
 import "fmt"
+
+type Dequer[T any] interface {
+	Len() int
+	AppendLast(T)
+	AppendFirst(val T)
+	PopFirst() (T, bool)
+	PopLast() (T, bool)
+	First() (T, bool)
+	Last() (T, bool)
+	At(uint) (T, bool)
+	InsertAt(T, uint)
+}
 
 type node[T any] struct {
 	val  T
@@ -14,18 +27,20 @@ type Deque[T any] struct {
 	count int
 }
 
+var _ Dequer[int] = (*Deque[int])(nil)
+
 func (q *Deque[T]) Len() int {
 	return q.count
 }
 
-func (q *Deque[T]) AppendLast(val T) *Deque[T] {
+func (q *Deque[T]) AppendLast(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
 		}
 		q.tail = q.head
 		q.count++
-		return q
+		return
 	}
 	q.tail.next = &node[T]{
 		val:  val,
@@ -33,17 +48,16 @@ func (q *Deque[T]) AppendLast(val T) *Deque[T] {
 	}
 	q.tail = q.tail.next
 	q.count++
-	return q
 }
 
-func (q *Deque[T]) AppendFirst(val T) *Deque[T] {
+func (q *Deque[T]) AppendFirst(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
 		}
 		q.tail = q.head
 		q.count++
-		return q
+		return
 	}
 	q.head.prev = &node[T]{
 		val:  val,
@@ -51,7 +65,6 @@ func (q *Deque[T]) AppendFirst(val T) *Deque[T] {
 	}
 	q.head = q.head.prev
 	q.count++
-	return q
 }
 
 func (q *Deque[T]) PopFirst() (T, bool) {
@@ -111,13 +124,15 @@ func (q *Deque[T]) At(at uint) (T, bool) {
 	return currNode.val, false
 }
 
-func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
+func (q *Deque[T]) InsertAt(val T, at uint) {
 	if at > uint(q.count) {
 		panic(fmt.Sprintf("Inserting at: %d greater than current number of nodes: %d", at, q.count))
 	} else if at == 0 {
-		return q.AppendFirst(val)
+		q.AppendFirst(val)
+		return
 	} else if at == uint(q.count) {
-		return q.AppendLast(val)
+		q.AppendLast(val)
+		return
 	}
 
 	prevNode := q.head.prev
@@ -135,5 +150,4 @@ func (q *Deque[T]) InsertAt(val T, at uint) *Deque[T] {
 	prevNode.next = newNode
 	currNode.prev = newNode
 	q.count++
-	return q
 }
