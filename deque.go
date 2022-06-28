@@ -6,7 +6,7 @@ import "fmt"
 type Dequer[T any] interface {
 	Len() int
 	AppendLast(T)
-	AppendFirst(val T)
+	AppendFirst(T)
 	PopFirst() (T, bool)
 	PopLast() (T, bool)
 	First() (T, bool)
