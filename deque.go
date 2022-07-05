@@ -1,4 +1,3 @@
-// Package deque implements
 package deque
 
 import "fmt"
