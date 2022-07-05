@@ -133,10 +133,11 @@ func TestAt(t *testing.T) {
 
 func TestAtPanic(t *testing.T) {
 	// No need to check whether `recover()` is nil. Just turn off the panic.
-	defer func() { _ = recover() }()
 	q := Deque[int]{}
-	q.At(5)
-	t.Errorf("should have panicked")
+	_, exists := q.At(5)
+	if exists == true {
+		t.Error("q.At(5) should return false.")
+	}
 }
 
 func TestInsertAt(t *testing.T) {
