@@ -21,30 +21,30 @@ type node[T any] struct {
 	prev *node[T]
 }
 
-// A Deque is the representation of a doubly-linked list.
-// The zero value for Deque is an empty deque ready to use.
-type Deque[T any] struct {
+// A DequeOld is the representation of a doubly-linked list.
+// The zero value for DequeOld is an empty deque ready to use.
+type DequeOld[T any] struct {
 	head  *node[T]
 	tail  *node[T]
 	count uint
 }
 
-var _ Dequer[int] = (*Deque[int])(nil)
+var _ Dequer[int] = (*DequeOld[int])(nil)
 
 // Returns the number of nodes in the Deque
-func (q *Deque[T]) Len() uint {
+func (q *DequeOld[T]) Len() uint {
 	return q.count
 }
 
 // Appends vals of type T to the Deque.
 // Input vals is read from left to right, such that the last input, will be the last val in the deque.
-func (q *Deque[T]) AppendLast(vals ...T) {
+func (q *DequeOld[T]) AppendLast(vals ...T) {
 	for _, val := range vals {
 		q.appendLast(val)
 	}
 }
 
-func (q *Deque[T]) appendLast(val T) {
+func (q *DequeOld[T]) appendLast(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
@@ -63,13 +63,13 @@ func (q *Deque[T]) appendLast(val T) {
 
 // Appends vals of type T to the Deque.
 // Input vals is read from left to right, such that the last input, will be the first val in the deque.
-func (q *Deque[T]) AppendFirst(vals ...T) {
+func (q *DequeOld[T]) AppendFirst(vals ...T) {
 	for _, val := range vals {
 		q.appendFirst(val)
 	}
 }
 
-func (q *Deque[T]) appendFirst(val T) {
+func (q *DequeOld[T]) appendFirst(val T) {
 	if q.count == 0 {
 		q.head = &node[T]{
 			val: val,
@@ -88,7 +88,7 @@ func (q *Deque[T]) appendFirst(val T) {
 
 // Removes and returns the first val in the Deque.
 // Exists returns false if Deque is empty along with the zero value for val.
-func (q *Deque[T]) PopFirst() (val T, exists bool) {
+func (q *DequeOld[T]) PopFirst() (val T, exists bool) {
 	if q.head == nil {
 		var noop T
 		return noop, false
@@ -105,7 +105,7 @@ func (q *Deque[T]) PopFirst() (val T, exists bool) {
 
 // Removes and returns the last val in the Deque.
 // Exists returns false if Deque is empty along with the zero value for val.
-func (q *Deque[T]) PopLast() (val T, exists bool) {
+func (q *DequeOld[T]) PopLast() (val T, exists bool) {
 	if q.tail == nil {
 		var noop T
 		return noop, false
@@ -122,7 +122,7 @@ func (q *Deque[T]) PopLast() (val T, exists bool) {
 
 // Returns the first val in the Deque.
 // Exists returns false if Deque is empty along with the zero value for val.
-func (q *Deque[T]) First() (val T, exists bool) {
+func (q *DequeOld[T]) First() (val T, exists bool) {
 	if q.head == nil {
 		var noop T
 		return noop, false
@@ -132,7 +132,7 @@ func (q *Deque[T]) First() (val T, exists bool) {
 
 // Returns the last val in the Deque.
 // Exists returns false if Deque is empty along with the zero value for val.
-func (q *Deque[T]) Last() (val T, exists bool) {
+func (q *DequeOld[T]) Last() (val T, exists bool) {
 	if q.tail == nil {
 		var noop T
 		return noop, false
@@ -142,7 +142,7 @@ func (q *Deque[T]) Last() (val T, exists bool) {
 
 // Returns the val at the index specified in the Deque.
 // Exists returns false if Deque is empty along with the zero value for val.
-func (q *Deque[T]) At(at uint) (val T, exists bool) {
+func (q *DequeOld[T]) At(at uint) (val T, exists bool) {
 	if at >= uint(q.count) {
 		var noop T
 		return noop, false
@@ -156,7 +156,7 @@ func (q *Deque[T]) At(at uint) (val T, exists bool) {
 
 // Inserts the val at the index specified in the Deque.
 // Panics if the index at is greater than number of available elements.
-func (q *Deque[T]) InsertAt(val T, at uint) {
+func (q *DequeOld[T]) InsertAt(val T, at uint) {
 	if at > uint(q.count) {
 		panic(fmt.Sprintf("Inserting at: %d greater than current number of nodes: %d", at, q.count))
 	} else if at == 0 {

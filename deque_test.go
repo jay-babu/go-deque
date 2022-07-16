@@ -5,14 +5,14 @@ import (
 )
 
 func TestEmpty(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	if q.Len() != 0 {
 		t.Error("q.Len() =", q.Len(), "expect 0")
 	}
 }
 
 func TestPrepend(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendFirst(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
@@ -33,7 +33,7 @@ func TestPrepend(t *testing.T) {
 }
 
 func TestPostpend(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendLast(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
@@ -54,7 +54,7 @@ func TestPostpend(t *testing.T) {
 }
 
 func TestPrePostpend(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendLast(1)
 	if q.Len() != 1 {
 		t.Error("q.Len() =", q.Len(), "expect 1")
@@ -83,7 +83,7 @@ func TestPrePostpend(t *testing.T) {
 }
 
 func TestPops(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendLast(1)
 	q.AppendLast(2)
 	q.AppendLast(3)
@@ -106,13 +106,13 @@ func TestPops(t *testing.T) {
 func TestInsertAtPanic(t *testing.T) {
 	// No need to check whether `recover()` is nil. Just turn off the panic.
 	defer func() { _ = recover() }()
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.InsertAt(5, 3)
 	t.Errorf("should have panicked")
 }
 
 func TestAt(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendLast(1)
 	q.AppendLast(2)
 	q.AppendLast(3)
@@ -133,7 +133,7 @@ func TestAt(t *testing.T) {
 
 func TestAtPanic(t *testing.T) {
 	// No need to check whether `recover()` is nil. Just turn off the panic.
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	_, exists := q.At(5)
 	if exists == true {
 		t.Error("q.At(5) should return false.")
@@ -141,7 +141,7 @@ func TestAtPanic(t *testing.T) {
 }
 
 func TestInsertAt(t *testing.T) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.InsertAt(0, 0)
 	q.InsertAt(2, 1)
 	q.InsertAt(1, 1)

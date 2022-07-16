@@ -3,12 +3,12 @@ package deque
 import "testing"
 
 var (
-	queue  Deque[int]
+	queue  DequeOld[int]
 	result int
 )
 
 func BenchmarkAppendFirst(b *testing.B) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	for n := 0; n < b.N; n++ {
 		q.AppendFirst(1)
 	}
@@ -16,7 +16,7 @@ func BenchmarkAppendFirst(b *testing.B) {
 }
 
 func BenchmarkAppendPopFirst(b *testing.B) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	for n := 0; n < b.N; n++ {
 		q.AppendFirst(1)
 	}
@@ -27,7 +27,7 @@ func BenchmarkAppendPopFirst(b *testing.B) {
 }
 
 func BenchmarkInsertAt(b *testing.B) {
-	q := Deque[int]{}
+	q := DequeOld[int]{}
 	q.AppendFirst(1)
 	q.AppendFirst(1)
 	for n := 0; n < b.N; n++ {
