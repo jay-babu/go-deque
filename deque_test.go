@@ -18,7 +18,7 @@ func TestPrepend(t *testing.T) {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	var val int
-	val = q.First()
+	val, _ = q.First()
 	if val != 1 {
 		t.Error("q.First() =", val, "expect 1")
 	}
@@ -26,7 +26,7 @@ func TestPrepend(t *testing.T) {
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
-	val = q.First()
+	val, _ = q.First()
 	if val != 2 {
 		t.Error("q.First() =", val, "expect 2")
 	}
@@ -39,7 +39,7 @@ func TestPostpend(t *testing.T) {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	var val int
-	val = q.First()
+	val, _ = q.First()
 	if val != 1 {
 		t.Error("q.First() =", val, "expect 1")
 	}
@@ -47,7 +47,7 @@ func TestPostpend(t *testing.T) {
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
-	val = q.Last()
+	val, _ = q.Last()
 	if val != 2 {
 		t.Error("q.Last() =", val, "expect 2")
 	}
@@ -60,7 +60,7 @@ func TestPrePostpend(t *testing.T) {
 		t.Error("q.Len() =", q.Len(), "expect 1")
 	}
 	var val int
-	val = q.First()
+	val, _ = q.First()
 	if val != 1 {
 		t.Error("q.First() =", val, "expect 1")
 	}
@@ -68,7 +68,7 @@ func TestPrePostpend(t *testing.T) {
 	if q.Len() != 2 {
 		t.Error("q.Len() =", q.Len(), "expect 2")
 	}
-	val = q.First()
+	val, _ = q.First()
 	if val != 2 {
 		t.Error("q.First() =", val, "expect 2")
 	}
@@ -76,7 +76,7 @@ func TestPrePostpend(t *testing.T) {
 	if q.Len() != 3 {
 		t.Error("q.Len() =", q.Len(), "expect 3")
 	}
-	val = q.Last()
+	val, _ = q.Last()
 	if val != 2 {
 		t.Error("q.Last() =", val, "expect 2")
 	}
@@ -89,15 +89,15 @@ func TestPops(t *testing.T) {
 	q.AppendLast(3)
 	var val int
 
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 1 {
 		t.Error("q.Prepop() = ", val, "expect 1")
 	}
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 2 {
 		t.Error("q.Prepop() = ", val, "expect 2")
 	}
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 3 {
 		t.Error("q.Prepop() = ", val, "expect 3")
 	}
@@ -117,26 +117,26 @@ func TestAt(t *testing.T) {
 	q.AppendLast(2)
 	q.AppendLast(3)
 	var val int
-	val = q.At(0)
+	val, _ = q.At(0)
 	if val != 1 {
 		t.Error("q.At(0) =", val, "expect 1")
 	}
-	val = q.At(1)
+	val, _ = q.At(1)
 	if val != 2 {
 		t.Error("q.At(1) =", val, "expect 2")
 	}
-	val = q.At(2)
+	val, _ = q.At(2)
 	if val != 3 {
 		t.Error("q.At(2) =", val, "expect 3")
 	}
 }
 
 func TestAtPanic(t *testing.T) {
-	// No need to check whether `recover()` is nil. Just turn off the panic.
-	defer func() { _ = recover() }()
 	q := Deque[int]{}
-	q.At(5)
-	t.Error("q.At(5) should return false.")
+	_, ok := q.At(5)
+	if ok {
+		t.Error("q.At(5) should return false.")
+	}
 }
 
 func TestInsertAt(t *testing.T) {
@@ -151,19 +151,19 @@ func TestInsertAt(t *testing.T) {
 	}
 
 	var val int
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 0 {
 		t.Error(val, "should have been 0")
 	}
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 1 {
 		t.Error(val, "should have been 1")
 	}
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 2 {
 		t.Error(val, "should have been 2")
 	}
-	val = q.PopFirst()
+	val, _ = q.PopFirst()
 	if val != 3 {
 		t.Error(val, "should have been 3")
 	}
